@@ -6,6 +6,8 @@ import java.util.List;
 
 @Component
 public class Python {
+
+    private String path;
     private List<String> versions;
     private List<String> packages;
 
@@ -13,6 +15,14 @@ public class Python {
     private List<String> selectedPackages;
 
     public Python() {
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public List<String> getPackages() {

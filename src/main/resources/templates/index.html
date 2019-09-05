@@ -42,21 +42,7 @@
                 <form id="build-form" class="form jumbotron">
                     <h4 id="form-header" class='row'>Build and launch a repository</h4>
                     <input type="hidden" id="provider_prefix" value="gh"/>
-                    <div class="form-group row">
-                        <label for="repository">Project path</label>
-                        <div class="input-group">
-                            <input class="form-control" type="text" id="repository" data-lpignore="true" placeholder="GitHub repository name or link"/>
-                            <div class="input-group-btn" id="url-type-btn">
-                                <button type="button" class="btn btn-secondary dropdown-toggle"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                        title="Specify path of repository"
-                                >
-                                    <span id="provider_prefix-selected">Directory</span>
-                                    <span class="caret"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="form-row row">
                         <div class="form-group col-md-2">
                             <div class="btn-group" id="launch-buttons">
@@ -72,16 +58,6 @@
                             <div class="btn-group" id="launch-buttons">
                                 <a th:href="@{julia}"><button id="choice3" class="btn-submit" type="button">Julia</button></a>
                             </div>
-                        </div>
-                    </div>
-
-                    <div id="log-container" class="panel panel-default on-build hidden row">
-                        <div id="toggle-logs" class="panel-heading">
-                            Build logs
-                            <button type="button" class="btn btn-link btn-xs pull-right">show</button>
-                        </div>
-                        <div class="panel-body hidden">
-                            <div id="log"></div>
                         </div>
                     </div>
                 </form>

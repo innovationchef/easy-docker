@@ -13,7 +13,7 @@ public class PythonConfigFIles {
         return content.toString();
     }
 
-    public void createRuntimeTxt() {
-
+    public String createRuntimeTxt(String selectedVersion) {
+        return selectedVersion;
     }
 }

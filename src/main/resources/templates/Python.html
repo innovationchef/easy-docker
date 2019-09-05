@@ -20,13 +20,13 @@
     <title>Easy Docker</title>
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div id="logo-container">
-            <img id="logo" th:src="@{/img/logo.svg}" width="390px"  />
+    <div class="container">
+        <div class="row">
+            <div id="logo-container">
+                <img id="logo" th:src="@{/img/logo.svg}" width="390px"  />
+            </div>
         </div>
     </div>
-</div>
 
     <div id="main" class="container">
         <div class="row">
@@ -38,8 +38,24 @@
                         Have a repository full of Jupyter notebooks? With Binder, open those notebooks in an executable environment, making your code immediately reproducible by anyone, anywhere.
                     </div>
                 </div>
-
                 <form action="#" th:action="@{/python}" th:object="${python}" method="post" id="build-form" class="form jumbotron">
+                    <h4 id="form-header" class='row'>Build and launch a repository</h4>
+                    <input type="hidden" id="provider_prefix" value="gh"/>
+                    <div class="form-group row">
+                        <label for="repository">Project path</label>
+                        <div class="input-group">
+                            <input class="form-control" type="text" id="repository" data-lpignore="true" placeholder="GitHub repository name or link" th:field="*{path}" />
+                            <div class="input-group-btn" id="url-type-btn">
+                                <button type="button" class="btn btn-secondary dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        title="Specify path of repository"
+                                >
+                                    <span id="provider_prefix-selected">Directory</span>
+                                    <span class="caret"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-5">
                             <ul style="list-style-type:none;">
@@ -65,7 +81,6 @@
                             </div>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>

@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +30,7 @@ public class FrontendController {
 
     @GetMapping(value = "/python")
     public String python(Model model) {
-        List<String> versions = Arrays.asList("2.7", "3.0", "3.3");
+        List<String> versions = Arrays.asList("python-2.7", "python-3.0", "python-3.3");
         List<String> packages = Arrays.asList("numpy==1.16.*", "matplotlib==3.*", "seaborn==0.8.1", "pandas");
 
         Python python = new Python();
@@ -40,9 +42,27 @@ public class FrontendController {
     }
 
     @PostMapping(value = "/python")
-    public String processForm(@ModelAttribute(value="python") Python python) {
+    public String processForm(@ModelAttribute(value="python") Python python) throws Exception {
         System.out.println(python.getSelectedVersion());
         System.out.println(python.getSelectedPackages());
+        System.out.println(python.getPath());
+
+        String text1 = pythonConfigFIles.createRequirementsTxt(python.getSelectedPackages());
+        File file1 = new File(python.getPath()+"\\requirements.txt");
+        FileWriter fileWriter1 = new FileWriter(file1);
+        fileWriter1.write(text1);
+        fileWriter1.flush();
+        fileWriter1.close();
+
+        String text2 = pythonConfigFIles.createRuntimeTxt(python.getSelectedVersion());
+        File file = new File(python.getPath()+"\\runtime.txt");
+        FileWriter fileWriter2 = new FileWriter(file);
+        fileWriter2.write(text2);
+        fileWriter2.flush();
+        fileWriter2.close();
+
+        byte[] byteArray = pythonConfigFIles.createRequirementsTxt(python.getSelectedPackages()).getBytes();
+
         return "index";
     }
 
@@ -57,14 +77,14 @@ public class FrontendController {
     }
 
     @PostMapping("/download")
-    public ResponseEntity<ByteArrayResource> downloadFile(
-            @RequestParam(defaultValue = "r2d_python.txt") String fileName, @ModelAttribute(value="python") Python python) throws IOException {
+    public ResponseEntity<ByteArrayResource> downloadFile(@RequestParam(defaultValue = "requirements.txt") String fileName,
+                                                          @ModelAttribute(value="python") Python python) throws IOException {
 
         byte[] byteArray = pythonConfigFIles.createRequirementsTxt(python.getSelectedPackages()).getBytes();
         ByteArrayResource resource = new ByteArrayResource(byteArray);
         MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext, fileName);
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=r2d_python.txt")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=requirements.txt")
                 .contentType(mediaType)
                 .contentLength(byteArray.length)
                 .body(resource);
