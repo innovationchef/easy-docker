@@ -18,6 +18,20 @@ Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/
 mvn spring-boot:run
 ```
 
+Go to http://localhost:8080 to open the app.
+
+## Run the application with Docker
+
+```shell
+docker run --rm -it -p 8080:8080  innovationchef/easy_docker
+```
+
+You may also build the image locally with
+
+```shell
+docker build --tag easy_docker .
+```
+
 ## Copyright
 
 Released under the Apache License 2.0. See the [LICENSE](https://github.com/codecentric/springboot-sample-app/blob/master/LICENSE) file.
