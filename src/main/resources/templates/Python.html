@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Easy Docker</title>
+</head>
+<body>
+    <form action="#" th:action="@{/download}" th:object="${python}" method="post">
+        <ul>
+            <li th:each="version : ${python.versions}">
+                <input type="radio" th:field="${python.selectedVersion}" th:value="${version}" />
+                <label th:for="${version}" th:text="${version}"></label>
+            </li>
+        </ul>
+
+        <ul>
+            <li th:each="package: ${python.packages}">
+                <input type="checkbox" th:field="${python.selectedPackages}" th:value="${package}" />
+                <label th:for="${package}" th:text="${package}"></label>
+            </li>
+        </ul>
+
+        <input type="submit" />
+    </form>
+</body>
+</html>
