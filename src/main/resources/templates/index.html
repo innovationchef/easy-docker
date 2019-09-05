@@ -15,7 +15,7 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <link id="favicon" rel="shortcut icon" type="image/png" th:href="@{/img/favicon.ico}" />
-    <link th:href="@{/css/style.css}" rel="stylesheet"></link>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
 
     <title>Easy Docker</title>
 </head>
@@ -39,127 +39,39 @@
                     </div>
                 </div>
 
-
-
                 <form id="build-form" class="form jumbotron">
                     <h4 id="form-header" class='row'>Build and launch a repository</h4>
                     <input type="hidden" id="provider_prefix" value="gh"/>
                     <div class="form-group row">
-                        <label for="repository">GitHub repo or Gist name or GitLab.com URL</label>
+                        <label for="repository">Project path</label>
                         <div class="input-group">
                             <input class="form-control" type="text" id="repository" data-lpignore="true" placeholder="GitHub repository name or link"/>
                             <div class="input-group-btn" id="url-type-btn">
                                 <button type="button" class="btn btn-secondary dropdown-toggle"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                        title="Specify source of repository"
+                                        title="Specify path of repository"
                                 >
-                              <span id="provider_prefix-selected">
-                              GitHub
-                              </span>
+                                    <span id="provider_prefix-selected">Directory</span>
                                     <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu" id="provider_prefix_sel">
-                                    <li class="dropdown-item" value="gh"><a href="#">GitHub</a></li>
-                                    <li class="dropdown-item" value="gist"><a href="#">Gist</a></li>
-                                    <li class="dropdown-item" value="gl"><a href="#">GitLab.com</a></li>
-                                    <li class="dropdown-item" value="git"><a href="#">Git repository</a></li>
-                                    <li class="dropdown-item" value="zenodo"><a href="#">Zenodo DOI</a></li>
-                                </ul>
                             </div>
                         </div>
                     </div>
                     <div class="form-row row">
-                        <div class="form-group col-md-4">
-                            <label for="ref">Git branch, tag, or commit</label>
-                            <input class="form-control" type="text" id="ref" placeholder="master"/>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="filepath"></label>
-                            <div class="input-group">
-                                <input class="form-control" type="text" id="filepath"
-                                       placeholder=""
-                                />
-                                <div class="input-group-btn" id="url-or-file-btn">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            title="Specify whether the path to open is a URL or a file"
-                                    >
-                                <span id="url-or-file-selected">
-                                File
-                                </span>
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li class="dropdown-item"><a href="#">File</a></li>
-                                        <li class="dropdown-item"><a href="#">URL</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="form-group col-md-2">
                             <div class="btn-group" id="launch-buttons">
-                                <button id="submit" class="btn-submit" type="submit">launch</button>
+                                <a th:href="@{python}"><button id="choice1" class="btn-submit" type="button">python</button></a>
                             </div>
                         </div>
-                    </div>
-
-                    <!--url section-->
-                    <div class="url row">
-                        <div class="dropdownmenu">
-                            <label>Copy the URL below and share your Binder with others:</label>
-                        </div>
-                        <div class="url-row">
-                            <pre id="basic-url-snippet" data-default="Fill in the fields to see a URL for sharing your Binder."></pre>
-                            <img class="icon clipboard" th:src="@{/img/copy-icon-black.ico}" data-clipboard-target="#basic-url-snippet" alt="Copy to clipboard">
-                        </div>
-                    </div>
-
-                    <div class="badges row">
-                        <div class="dropdownmenu" id="toggle-badge-snippet">
-                            <label>Copy the text below, then paste into your README to show a binder badge: <img id="badge" src="/static/images/badge_logo.svg?v=117793ab76524046ef44e2d2d5af220c"></label>
-                            <a id="badge-link"></a>
-                            <a href="#" title="show badge snippets"><span id="badge-snippet-caret" class="glyphicon glyphicon-triangle-right"></span></a>
-                        </div>
-                        <div id="badge-snippets" class="hidden">
-                            <!--Markdown section-->
-                            <div  class="badge-snippet-row">
-                                <pre id="markdown-badge-snippet" data-default="Fill in the fields to see the markdown badge snippet."></pre>
-                                <img class="icon" src="/static/images/markdown-icon.svg?v=4e4923577a5e538ad262509d8c569fa3">
-                                <img class="icon clipboard"
-                                     src="/static/images/copy-icon-black.svg?v=2b8143bdaefdc425fbf8293cd1d76843"
-                                     data-clipboard-target="#markdown-badge-snippet"
-                                     alt="Copy markdown link to clipboard">
-                            </div>
-                            <!--RST section-->
-                            <div  class="badge-snippet-row">
-                                <pre id="rst-badge-snippet" data-default="Fill in the fields to see the rST badge snippet."></pre>
-                                <img class="icon" src="/static/images/rst-icon.svg?v=39f5db3a54755fe734e5311bd6288c5c">
-                                <img class="icon clipboard" src="/static/images/copy-icon-black.svg?v=2b8143bdaefdc425fbf8293cd1d76843"
-                                     data-clipboard-target="#rst-badge-snippet"
-                                     alt="Copy rst link to clipboard">
+                        <div class="form-group col-md-2">
+                            <div class="btn-group" id="launch-buttons">
+                                <a th:href="@{r}"><button id="choice2" class="btn-submit" type="button">R</button></a>
                             </div>
                         </div>
-                    </div>
-
-                    <div id="build-progress" class="progress on-build hidden row">
-                        <div id="phase-failed" class="progress-bar progress-bar-danger progress-bar-striped hidden" style="width: 100%">
-                            Failed
-                        </div>
-                        <div id="phase-waiting" class="progress-bar progress-bar-danger progress-bar-striped active hidden" style="width: 10%">
-                            Waiting
-                        </div>
-                        <div id="phase-already-built" class="progress-bar progress-bar-warning progress-bar-striped active hidden" style="width: 90%">
-                            Already built!
-                        </div>
-                        <div id="phase-building" class="progress-bar progress-bar-warning progress-bar-striped active hidden" style="width: 40%">
-                            Building
-                        </div>
-                        <div id="phase-pushing" class="progress-bar progress-bar-info progress-bar-striped active hidden" style="width: 40%">
-                            Pushing
-                        </div>
-                        <div id="phase-launching" class="progress-bar progress-bar-success progress-bar-striped active hidden" style="width: 10%">
-                            Launching
+                        <div class="form-group col-md-2">
+                            <div class="btn-group" id="launch-buttons">
+                                <a th:href="@{julia}"><button id="choice3" class="btn-submit" type="button">Julia</button></a>
+                            </div>
                         </div>
                     </div>
 
@@ -176,15 +88,5 @@
             </div>
         </div>
     </div>
-
-<!--    <div class="form-group col-md-2">-->
-<!--        <div class="btn-group">-->
-<!--            <button class="btn-submit" type="button">launch</button>-->
-<!--        </div>-->
-<!--    </div>-->
-
-    <a th:href="@{python}"><button type="button">Python</button></a>
-    <a th:href="@{r}"><button type="button">R</button></a>
-    <a th:href="@{julia}"><button type="button">Julia</button></a>
 </body>
 </html>

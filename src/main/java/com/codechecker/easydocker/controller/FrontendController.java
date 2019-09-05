@@ -60,12 +60,9 @@ public class FrontendController {
     public ResponseEntity<ByteArrayResource> downloadFile(
             @RequestParam(defaultValue = "r2d_python.txt") String fileName, @ModelAttribute(value="python") Python python) throws IOException {
 
-        MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext, fileName);
-        System.out.println("fileName: " + fileName);
-        System.out.println("mediaType: " + mediaType);
         byte[] byteArray = pythonConfigFIles.createRequirementsTxt(python.getSelectedPackages()).getBytes();
         ByteArrayResource resource = new ByteArrayResource(byteArray);
-
+        MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext, fileName);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=r2d_python.txt")
                 .contentType(mediaType)
